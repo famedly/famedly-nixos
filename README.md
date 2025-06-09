@@ -5,6 +5,15 @@ with our ISMS on NixOS!
 
 ## Usage
 
+### Drivestrike registration
+
+Before the systemd service will work, you will need to register
+drivestrike:
+
+```console
+# drivestrike register <registration code> "" https://app.drivestrike.com/svc/
+```
+
 ### Flakes
 
 ```nix
@@ -45,5 +54,5 @@ Please use nixpkgs-fmt (RFC edition).
 Updating drivestrike can be done with the usual NixOS-style update script:
 
 ```console
-nix run .#drivestrike.updateScript
+$ nix run .#drivestrike.updateScript
 ```
