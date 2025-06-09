@@ -88,10 +88,4 @@ stdenv.mkDerivation (finalAttrs: {
 
         update-source-version drivestrike $version
       '';
-
-  # To register, use:
-  #
-  # ```console
-  # # drivestrike register <registration code> "" https://app.drivestrike.com/svc/
-  # ```
 })
