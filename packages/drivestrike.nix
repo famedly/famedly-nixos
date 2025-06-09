@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     install -D usr/bin/drivestrike $out/bin/drivestrike
-    install -D lib/systemd/system/drivestrike.service $out/lib/systemd/drivestrike.service
+    install -D lib/systemd/system/drivestrike.service $out/lib/systemd/system/drivestrike.service
   '';
 
   passthru.updateScript =

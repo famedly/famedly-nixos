@@ -7,6 +7,7 @@
   outputs =
     { nixpkgs, ... }@inputs:
     {
+      nixosModules = import ./modules inputs;
       packages = import ./packages inputs;
     };
 }
