@@ -5,6 +5,7 @@ flake-inputs: {
       imports = [
         ./clamav.nix
         ./osquery.nix
+        ./git.nix
       ];
       systemd.packages = [ flake-inputs.self.packages.${pkgs.system}.drivestrike ];
       systemd.services.drivestrike.enable = true;
