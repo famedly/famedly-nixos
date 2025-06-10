@@ -12,7 +12,7 @@ with our ISMS on NixOS!
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    famedly-nixos.url = "github:famedly/famedly-nixos";
+    famedly-nixos.url = "git+ssh://git@github.com/famedly/famedly-nixos";
   };
 
   outputs =
@@ -33,7 +33,6 @@ with our ISMS on NixOS!
 { flake-inputs, ... }:
 {
   imports = [ flake-inputs.famedly-nixos.nixosModules.default ];
-
   # Any other configuration here
 }
 ```
