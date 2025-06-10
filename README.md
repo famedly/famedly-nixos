@@ -33,9 +33,15 @@ with our ISMS on NixOS!
 { flake-inputs, ... }:
 {
   imports = [ flake-inputs.famedly-nixos.nixosModules.default ];
+
+  famedly-hwp.osquery_secret_path = "/etc/secret/osquery_secret.txt";
+
   # Any other configuration here
 }
 ```
+
+#### Required files
+The enroll secret of osquery is expected to be found in `famedly-hwp.osquery_secret_path`, which you should set in your own config.
 
 ## Maintenance & contributing
 
