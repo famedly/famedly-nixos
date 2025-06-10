@@ -10,5 +10,10 @@ flake-inputs: {
       systemd.packages = [ flake-inputs.self.packages.${pkgs.system}.drivestrike ];
       systemd.services.drivestrike.enable = true;
       environment.systemPackages = [ flake-inputs.self.packages.${pkgs.system}.drivestrike ];
+
+      programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+      };
     };
 }
