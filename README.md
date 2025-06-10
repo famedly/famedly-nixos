@@ -12,7 +12,7 @@ with our ISMS on NixOS!
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    famedly-nixos.url = "github:famedly/famedly-nixos";
+    famedly-nixos.url = "git+ssh://git@github.com/famedly/famedly-nixos";
   };
 
   outputs =
@@ -34,9 +34,14 @@ with our ISMS on NixOS!
 {
   imports = [ flake-inputs.famedly-nixos.nixosModules.default ];
 
+  famedly-hwp.osquery_secret_path = "/etc/secret/osquery_secret.txt";
+
   # Any other configuration here
 }
 ```
+
+#### Required files
+The enroll secret of osquery is expected to be found in `famedly-hwp.osquery_secret_path`, which you should set in your own config.
 
 ## Maintenance & contributing
 
