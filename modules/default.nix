@@ -1,19 +1,13 @@
-flake-inputs: {
-  default =
-    { pkgs, ... }:
+    { config, pkgs, lib, ... }:
     {
       imports = [
         ./clamav.nix
         ./osquery.nix
         ./git.nix
       ];
-      systemd.packages = [ flake-inputs.self.packages.${pkgs.system}.drivestrike ];
+      systemd.packages = [ pkgs.drivestrike ];
       systemd.services.drivestrike.enable = true;
-      environment.systemPackages = [ flake-inputs.self.packages.${pkgs.system}.drivestrike ];
+      environment.systemPackages = [ pkgs.drivestrike ];
 
-      programs.gnupg.agent = {
-        enable = true;
-        enableSSHSupport = true;
-      };
-    };
-}
+      nixpkgs.overlays = [ (import ../packages/overlay.nix) ];
+    }

@@ -1,6 +1,6 @@
-# Famedly NixOS flake
+# Famedly NixOS module
 
-This is a flake for setting up basic system configuration to conform
+This is a module for setting up basic system configuration to conform
 with our ISMS on NixOS!
 
 ## Usage
@@ -14,34 +14,12 @@ drivestrike:
 # drivestrike register <registration code> "" https://app.drivestrike.com/svc/
 ```
 
-### Flakes
-
-```nix
-# flake.nix
-{
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    famedly-nixos.url = "git+ssh://git@github.com/famedly/famedly-nixos";
-  };
-
-  outputs =
-    { nixpkgs, famedly-nixos, ... }@inputs:
-    {
-      nixosConfigurations.hostname = nixpkgs.lib.nixosSystem {
-        # drivestrike currently doesn't appear to be built for other architectures, so sadly no other options
-        system = "x86_64-linux";
-        modules = [ ./configuration.nix ];
-        specialArgs.flake-inputs = inputs;
-      };
-    };
-}
-```
+### Include
 
 ```nix
 # configuration.nix
-{ flake-inputs, ... }:
 {
-  imports = [ flake-inputs.famedly-nixos.nixosModules.default ];
+  imports = [ ./famedly-nixos ];
 
   famedly-hwp.osquery_secret_path = "/etc/secret/osquery_secret.txt";
 
