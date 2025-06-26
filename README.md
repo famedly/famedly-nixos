@@ -1,11 +1,51 @@
 # Famedly NixOS flake
 
-This is a flake for setting up basic system configuration to conform
-with our ISMS on NixOS!
+This is a flake containing a collection of outputs required for
+developing with nix.
+
+Among these:
+- A basic system configuration module to conform with our ISMS on NixOS
+- A devshell for Rust development at Famedly
 
 ## Usage
 
-### Drivestrike registration
+### Devshells
+
+Devshells are self-contained development environments containing all
+the development tools required, with specific, shared, reproducible
+versions.
+
+Since nix isn't limited to use on NixOS, these can be used on any
+distro. We could make our dev environment setup quite a bit easier if
+we started using this more extensively.
+
+For now, this repo contains some basic toolchain devshells that
+generally work.
+
+#### Direnv
+
+Using [direnv](https://direnv.net/) is recommended to auto-enable nix
+environments in editors, especially on NixOS. This flake can be used
+with the following `.envrc`, for example for rust development:
+
+```
+# .envrc
+use flake github:famedly/famedly-nixos#rust
+```
+
+#### Pure nix
+
+Alternatively, entering the environment before starting your editor is
+an option too. This can be done like so:
+
+```console
+$ nix develop github:famedly/famedly-nixos#rust
+$ code/emacs/nvim/vi/ed
+```
+
+### NixOS module
+
+#### Drivestrike registration
 
 Before the systemd service will work, you will need to register
 drivestrike:
@@ -14,7 +54,7 @@ drivestrike:
 # drivestrike register <registration code> "" https://app.drivestrike.com/svc/
 ```
 
-### Flakes
+#### Flakes
 
 ```nix
 # flake.nix
@@ -49,7 +89,7 @@ drivestrike:
 }
 ```
 
-#### Required files
+##### Required files
 The enroll secret of osquery is expected to be found in `famedly-hwp.osquery_secret_path`, which you should set in your own config.
 
 ## Maintenance & contributing
