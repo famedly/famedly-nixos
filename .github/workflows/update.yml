@@ -1,0 +1,21 @@
+name: update
+
+on:
+  schedule:
+    - cron: '0 2 * * 6'
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Update flake inputs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix flake update --commit-lock-file
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: bot/update
+          delete-branch: true
+          title: Update flake inputs
