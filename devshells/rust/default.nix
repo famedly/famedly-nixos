@@ -3,7 +3,7 @@
   nixpkgs,
   fenix,
   ...
-}:
+}@flake-inputs:
 let
   pkgs = nixpkgs.legacyPackages.${system};
   fenix' = fenix.packages.${system};
@@ -38,9 +38,9 @@ pkgs.mkShell {
       # installed for testing most of our projects
       cargo-nextest
 
-      # TODO: Add cargo-udeps. It only works with a nightly rustc,
-      # though, so we need to find a way to make it use a different rust
-      # channel than the one we install for actual dev purposes.
+      # Used to figure out if all crates in `Cargo.toml` are actually
+      # used in a repository
+      (pkgs.callPackage ./cargo-udeps.nix { inherit flake-inputs; })
 
       # Used universally in the rust ecosystem to locate system deps
       pkg-config

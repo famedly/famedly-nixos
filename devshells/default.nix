@@ -6,5 +6,5 @@ let
   ];
 in
 nixpkgs.lib.genAttrs systems (system: {
-  rust = import ./rust.nix (inputs // { inherit system; });
+  rust = import ./rust (inputs // { inherit system; });
 })
