@@ -21,6 +21,7 @@ pkgs.mkShell {
         fenix'.combine [
           cargo
           rust-docs
+          rust-src
           rust-std
           rustc
           rust-analyzer
