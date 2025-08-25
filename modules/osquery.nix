@@ -7,7 +7,7 @@
 {
   options = {
     famedly-hwp.osquery_secret_path = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.path;
       example = "/etc/secrets/osquery_secrets.txt";
       description = "Path to the osquery enroll secret";
     };
