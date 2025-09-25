@@ -9,6 +9,7 @@
   };
 
   outputs =
+    { nixpkgs, ... }@inputs:
     let
       # Generally supported systems; specific outputs may have more
       # specific requirements, e.g. drivestrike is not built for
@@ -18,11 +19,11 @@
         "aarch64-darwin"
       ];
     in
-    { nixpkgs, ... }@inputs:
     {
       nixosModules = import ./modules inputs;
-      packages = import ./packages (inputs // supportedSystems);
-      devShells = import ./devshells (inputs // supportedSystems);
+      packages = import ./packages (inputs // { inherit supportedSystems; });
+      pkgsLib = import ./pkgs-lib (inputs // { inherit supportedSystems; });
+      devShells = import ./devshells (inputs // { inherit supportedSystems; });
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
     };
 }
