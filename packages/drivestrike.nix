@@ -16,10 +16,10 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "drivestrike";
-  version = "2.1.23-8";
+  version = "2.1.23-12";
   src = fetchurl {
     url = "https://app.drivestrike.com/static/yum/drivestrike.rpm";
-    sha256 = "sha256-eVCWF7YaXSDnu3d5t97+zqnjsFIHCKUKKZkQwxtvOBQ=";
+    sha256 = "sha256-wZ/0uD/mdJvPS+bASjwg9g79ZG+oSdwXXbyxb5rXyeo=";
   };
 
   nativeBuildInputs = [
