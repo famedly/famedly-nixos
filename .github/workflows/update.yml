@@ -10,9 +10,13 @@ jobs:
     name: Update flake inputs
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          git config set user.email "bot@example.com"
+          git config set user.name "GitHub Automation"
       - run: nix flake update --commit-lock-file
       - uses: peter-evans/create-pull-request@v7
         with:
