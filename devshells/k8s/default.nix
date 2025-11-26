@@ -13,5 +13,6 @@ pkgs.mkShell {
       kubectl
       kubelogin-oidc
       kubetui
+      kubernetes-helm
     ];
 }
