@@ -1,10 +1,10 @@
 {
-  system,
+  stdenv,
   nixpkgs,
   ...
 }@flake-inputs:
 let
-  pkgs = nixpkgs.legacyPackages.${system};
+  pkgs = nixpkgs.legacyPackages.${stdenv.hostPlatform.system};
 in
 pkgs.mkShell {
   packages =

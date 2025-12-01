@@ -1,10 +1,11 @@
 {
-  system,
+  stdenv,
   nixpkgs,
   fenix,
   ...
 }@flake-inputs:
 let
+  inherit (stdenv.hostPlatform) system;
   pkgs = nixpkgs.legacyPackages.${system};
   fenix' = fenix.packages.${system};
   rust-stable = fenix.packages.${system}.stable;

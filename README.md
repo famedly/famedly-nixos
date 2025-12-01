@@ -68,8 +68,6 @@ drivestrike:
     { nixpkgs, famedly-nixos, ... }@inputs:
     {
       nixosConfigurations.hostname = nixpkgs.lib.nixosSystem {
-        # drivestrike currently doesn't appear to be built for other architectures, so sadly no other options
-        system = "x86_64-linux";
         modules = [ ./configuration.nix ];
         specialArgs.flake-inputs = inputs;
       };

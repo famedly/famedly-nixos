@@ -8,12 +8,37 @@
   glib-networking,
   libsoup_2_4,
   rpmextract,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 
   writers,
   common-updater-scripts,
   nvchecker,
 }:
+let
+  insecureLibSoup = libsoup_2_4.overrideAttrs (drv: {
+    meta = drv.meta // {
+      # This allows using libsoup as a dependency; since we're
+      # building our packages from a flake-imported nixpkgs, there is
+      # no better way to do this. To still propagate this to the
+      # package evaluation, we inherit these CVEs on our
+      # `drivestrike`.
+      #
+      # Yes, there's not much we can do besides using an insecure
+      # library.
+      #
+      # FWIW, debian-based systems *also* install an insecure version
+      # of libsoup, it's just hidden from them because it's shipped
+      # alongside drivestrike in their apt repo.
+      #
+      # Shipping insecure dependencies and just not telling anyone is
+      # pretty common in the proprietary application world, sadly.
+      #
+      # TODO: Remove this entire override if/when drivestrike stop
+      # using libsoup 2.4.
+      knownVulnerabilities = [ ];
+    };
+  });
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "drivestrike";
   version = "2.1.23-12";
@@ -24,12 +49,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     autoPatchelfHook
-    wrapGAppsHook
+    wrapGAppsHook3
     glib
     glib-networking
     rpmextract
   ];
-  buildInputs = [ libsoup_2_4 ];
+  buildInputs = [ insecureLibSoup ];
 
   unpackCmd = ''
     mkdir ${finalAttrs.pname}-${finalAttrs.version} && pushd ${finalAttrs.pname}-${finalAttrs.version}
@@ -88,4 +113,12 @@ stdenv.mkDerivation (finalAttrs: {
 
         update-source-version drivestrike $version
       '';
+
+  meta.knownVulnerabilities = [
+    ''
+      We depend on libsoup 2, which is EOL, and has many known, unfixed CVEs.
+
+      See the upstream libsoup vulnerability list for details.
+    ''
+  ];
 })

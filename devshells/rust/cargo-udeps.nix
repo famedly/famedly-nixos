@@ -9,7 +9,7 @@
 {
   flake-inputs,
 
-  system,
+  stdenv,
   lib,
 
   runCommand,
@@ -19,6 +19,7 @@
   cargo-udeps,
 }:
 let
+  inherit (stdenv.hostPlatform) system;
   cargo-udeps-wrapped =
     runCommand "cargo-udeps-wrapped" { nativeBuildInputs = [ makeBinaryWrapper ]; }
       ''
