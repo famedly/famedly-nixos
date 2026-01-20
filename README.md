@@ -4,6 +4,7 @@ This is a flake containing a collection of outputs required for
 developing with nix.
 
 Among these:
+
 - A basic system configuration module to conform with our ISMS on NixOS
 - A devshell for Rust development at Famedly
 
@@ -88,7 +89,36 @@ drivestrike:
 ```
 
 ##### Required files
+
 The enroll secret of osquery is expected to be found in `famedly-hwp.osquery_secret_path`, which you should set in your own config.
+
+### Cachix
+
+A pre-configured module is provided to use the Famedly Cachix instance.
+To use it, your system configuration should contain:
+
+```nix
+# configuration.nix
+{ flake-inputs, ... }:
+{
+  imports = [ flake-inputs.famedly-nixos.nixosModules.default ];
+
+  famedly-cachix.enable = true;
+  nix.extraOptions = ''
+    netrc-file = /etc/nix/netrc
+  '';
+}
+```
+
+The `netrc-file`, here in `/etc/nix/netrc`, should have at least the following contents:
+
+```
+machine famedly.cachix.org password <AUTH_TOKEN>
+```
+
+where an `<AUTH_TOKEN>` can be generated on the Cachix website. If you actually work
+here, you should be able to go to https://app.cachix.org/personal-auth-tokens
+and login with GitHub to generate an auth token.
 
 ## Maintenance & contributing
 

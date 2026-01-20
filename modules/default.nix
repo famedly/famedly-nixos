@@ -20,6 +20,7 @@ flake-inputs: {
         ./clamav.nix
         ./osquery.nix
         ./git.nix
+        ./cachix.nix
       ];
       systemd.packages = [ drivestrike' ];
       systemd.services.drivestrike.enable = true;
