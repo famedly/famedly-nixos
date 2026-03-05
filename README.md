@@ -55,6 +55,8 @@ drivestrike:
 # drivestrike register <registration code> "" https://app.drivestrike.com/svc/
 ```
 
+The registration code is usually your famedly.com e-mail address.
+
 #### Flakes
 
 ```nix
