@@ -1,10 +1,15 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     flake-compat.url = "github:edolstra/flake-compat";
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    fleet-nixos = {
+      url = "github:adamcik/fleet-nixos";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 

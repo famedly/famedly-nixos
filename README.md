@@ -46,16 +46,16 @@ $ code/emacs/nvim/vi/ed
 
 ### NixOS module
 
-#### Drivestrike registration
-
-Before the systemd service will work, you will need to register
-drivestrike:
-
-```console
-# drivestrike register <registration code> "" https://app.drivestrike.com/svc/
-```
-
 #### Flakes
+
+> [!WARNING]
+>
+> The NixOS modules aren't *entirely* declarative, because we can't
+> deploy secrets using a git repository; secrets must be supplied
+> manually at the moment.
+>
+> Don't skip the [enrolling credentials](#enrolling-credentials)
+> heading.
 
 ```nix
 # flake.nix
@@ -81,16 +81,27 @@ drivestrike:
 { flake-inputs, ... }:
 {
   imports = [ flake-inputs.famedly-nixos.nixosModules.default ];
-
-  famedly-hwp.osquery_secret_path = "/etc/secret/osquery_secret.txt";
-
-  # Any other configuration here
 }
 ```
 
-##### Required files
+#### Enrolling credentials
 
-The enroll secret of osquery is expected to be found in `famedly-hwp.osquery_secret_path`, which you should set in your own config.
+Our modules support [systemd
+credentials](https://systemd.io/CREDENTIALS/) natively. To supply the
+credentials, they must be placed in appropriately-named files using
+the `systemd-creds` command.
+
+This looks something like:
+
+```console
+echo '<credential>' | systemd-creds encrypt - /etc/credstore.encrypted/<credential-id>
+```
+
+Currently, we use these credential IDs:
+
+| ID               | Purpose                                 | Source |
+| ---------------- | --------------------------------------- | ------ |
+| fleet-enroll-key | Enrolls the device into a fleetdm group | https://www.notion.so/famedly/Hardware-a5f914e033c241ea97fa2e5855d464d8?source=copy_link#ff572210323342739a2c0fad07c82339 |
 
 ### Cachix
 
@@ -123,9 +134,3 @@ and login with GitHub to generate an auth token.
 ## Maintenance & contributing
 
 Please use nixpkgs-fmt (RFC edition).
-
-Updating drivestrike can be done with the usual NixOS-style update script:
-
-```console
-$ nix run .#drivestrike.updateScript
-```
