@@ -1,52 +1,15 @@
 # Famedly NixOS flake
 
-This is a flake containing a collection of outputs required for
-developing with nix.
+This repository contains the NixOS modules required to comply with
+Famedly's ISMS policies.
 
-Among these:
+> [!INFO]
+>
+> Previously, this repository also contained some devshells. These are
+> being migrated to our [famedly/engineering-standards](https://github.com/famedly/engineering-standards)
+> repository.
 
-- A basic system configuration module to conform with our ISMS on NixOS
-- A devshell for Rust development at Famedly
-
-## Usage
-
-### Devshells
-
-Devshells are self-contained development environments containing all
-the development tools required, with specific, shared, reproducible
-versions.
-
-Since nix isn't limited to use on NixOS, these can be used on any
-distro. We could make our dev environment setup quite a bit easier if
-we started using this more extensively.
-
-For now, this repo contains some basic toolchain devshells that
-generally work.
-
-#### Direnv
-
-Using [direnv](https://direnv.net/) is recommended to auto-enable nix
-environments in editors, especially on NixOS. This flake can be used
-with the following `.envrc`, for example for rust development:
-
-```
-# .envrc
-use flake github:famedly/famedly-nixos#rust
-```
-
-#### Pure nix
-
-Alternatively, entering the environment before starting your editor is
-an option too. This can be done like so:
-
-```console
-$ nix develop github:famedly/famedly-nixos#rust
-$ code/emacs/nvim/vi/ed
-```
-
-### NixOS module
-
-#### Flakes
+## Installation
 
 > [!WARNING]
 >
@@ -84,7 +47,9 @@ $ code/emacs/nvim/vi/ed
 }
 ```
 
-#### Enrolling credentials
+## Usage
+
+### Enrolling credentials
 
 Our modules support [systemd
 credentials](https://systemd.io/CREDENTIALS/) natively. To supply the
@@ -133,4 +98,4 @@ and login with GitHub to generate an auth token.
 
 ## Maintenance & contributing
 
-Please use nixpkgs-fmt (RFC edition).
+Please use nixfmt.

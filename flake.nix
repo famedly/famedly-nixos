@@ -1,24 +1,25 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
-    flake-compat.url = "github:edolstra/flake-compat";
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    famedly-engineering-standards.url = "github:famedly/engineering-standards";
+
+    nixpkgs.follows = "famedly-engineering-standards/nixpkgs";
+    flake-parts.follows = "famedly-engineering-standards/flake-parts";
+
     fleet-nixos = {
       url = "github:adamcik/fleet-nixos";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
-    {
-      nixosModules = import ./modules inputs;
-      packages = import ./packages inputs;
-      devShells = import ./devshells inputs;
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+    { famedly-engineering-standards, flake-parts, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ famedly-engineering-standards.flakeModules.default ];
+
+      systems = famedly-engineering-standards.lib.famedlySystems;
+
+      perSystem.famedly.standards.nix.projects."." = { };
+
+      flake.nixosModules.default = import ./modules inputs;
     };
 }
