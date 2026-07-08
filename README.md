@@ -25,7 +25,7 @@ Famedly's ISMS policies.
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    famedly-nixos.url = "git+ssh://git@github.com/famedly/famedly-nixos";
+    famedly-nixos.url = "github:famedly/famedly-nixos";
   };
 
   outputs =
