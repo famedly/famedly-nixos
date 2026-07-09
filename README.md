@@ -24,7 +24,7 @@ Famedly's ISMS policies.
 # flake.nix
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     famedly-nixos.url = "github:famedly/famedly-nixos";
   };
 
