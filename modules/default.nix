@@ -3,7 +3,7 @@ flake-inputs: {
     ./clamav.nix
     ./fleetdm
     ./git.nix
-    ./cachix.nix
+    ./nix.nix
 
     flake-inputs.fleet-nixos.nixosModules.fleet-nixos
   ];
