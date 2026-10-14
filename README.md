@@ -49,6 +49,15 @@ Famedly's ISMS policies.
 
 ## Usage
 
+### Drivestrike registration
+
+Before the systemd service will work, you will need to register
+drivestrike:
+
+```console
+# drivestrike register <registration code> "" https://app.drivestrike.com/svc/
+```
+
 ### Enrolling credentials
 
 Our modules support [systemd
@@ -99,3 +108,9 @@ and login with GitHub to generate an auth token.
 ## Maintenance & contributing
 
 Please use nixfmt.
+
+Updating drivestrike can be done with the usual NixOS-style update script:
+
+```console
+$ nix run .#drivestrike.updateScript
+```

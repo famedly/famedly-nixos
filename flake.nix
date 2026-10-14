@@ -18,7 +18,21 @@
 
       systems = famedly-engineering-standards.lib.famedlySystems;
 
-      perSystem.famedly.standards.nix.projects."." = { };
+      perSystem =
+        {
+          pkgs,
+          lib,
+          system,
+          ...
+        }:
+        {
+          famedly.standards.nix.projects."." = { };
+
+          # DriveStrike only ships x86_64 Linux binaries.
+          packages = lib.optionalAttrs (system == "x86_64-linux") {
+            drivestrike = pkgs.callPackage ./packages/drivestrike.nix { };
+          };
+        };
 
       flake.nixosModules.default = import ./modules inputs;
     };
