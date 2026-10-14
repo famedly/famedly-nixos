@@ -59,7 +59,7 @@ the `systemd-creds` command.
 This looks something like:
 
 ```console
-echo '<credential>' | systemd-creds encrypt - /etc/credstore.encrypted/<credential-id>
+echo '<credential>' | sudo systemd-creds encrypt - /etc/credstore.encrypted/<credential-id>
 ```
 
 Currently, we use these credential IDs:
