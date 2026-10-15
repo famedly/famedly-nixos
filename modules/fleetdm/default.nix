@@ -32,7 +32,7 @@ in
 
         To create the systemd credential, use the following command:
 
-            echo '<enroll-key>' | systemd-creds encrypt - /etc/credstore.encrypted/fleet-enroll-key
+            echo '<enroll-key>' | sudo systemd-creds encrypt - /etc/credstore.encrypted/fleet-enroll-key
       '';
     };
   };

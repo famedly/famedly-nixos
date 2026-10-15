@@ -18,8 +18,21 @@
 
       systems = famedly-engineering-standards.lib.famedlySystems;
 
-      perSystem.famedly.standards.nix.projects."." = { };
+      perSystem =
+        {
+          pkgs,
+          inputs',
+          self',
+          ...
+        }:
+        {
+          famedly.standards.nix.projects."." = { };
+          packages = pkgs.lib.packagesFromDirectoryRecursive {
+            callPackage = pkgs.lib.callPackageWith (pkgs // { inherit inputs inputs' self'; });
+            directory = ./packages;
+          };
+        };
 
-      flake.nixosModules.default = import ./modules inputs;
+      flake.nixosModules.default = flake-parts.lib.importApply ./modules { inherit inputs; };
     };
 }

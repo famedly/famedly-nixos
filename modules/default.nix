@@ -1,12 +1,16 @@
-flake-inputs: {
+{ inputs, ... }@top-level-args:
+{
   imports = [
     ./clamav.nix
+    (inputs.flake-parts.lib.importApply ./drivestrike.nix top-level-args)
     ./fleetdm
     ./git.nix
     ./nix.nix
 
-    flake-inputs.fleet-nixos.nixosModules.fleet-nixos
+    inputs.fleet-nixos.nixosModules.fleet-nixos
   ];
+
+  famedly.drivestrike.enable = true;
 
   programs.gnupg.agent = {
     enable = true;

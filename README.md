@@ -59,14 +59,15 @@ the `systemd-creds` command.
 This looks something like:
 
 ```console
-echo '<credential>' | systemd-creds encrypt - /etc/credstore.encrypted/<credential-id>
+echo '<credential>' | sudo systemd-creds encrypt - /etc/credstore.encrypted/<credential-id>
 ```
 
 Currently, we use these credential IDs:
 
-| ID               | Purpose                                 | Source |
-| ---------------- | --------------------------------------- | ------ |
-| fleet-enroll-key | Enrolls the device into a fleetdm group | https://www.notion.so/famedly/Hardware-a5f914e033c241ea97fa2e5855d464d8?source=copy_link#ff572210323342739a2c0fad07c82339 |
+| ID                            | Purpose                                 | Source |
+| ----------------------------- | --------------------------------------- | ------ |
+| drivestrike-registration-code | Registers the device to drivestrike     | Your famedly email address |
+| fleet-enroll-key              | Enrolls the device into a fleetdm group | https://www.notion.so/famedly/Hardware-a5f914e033c241ea97fa2e5855d464d8?source=copy_link#ff572210323342739a2c0fad07c82339 |
 
 ### Cachix
 
