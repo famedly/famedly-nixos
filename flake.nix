@@ -14,7 +14,10 @@
   outputs =
     { famedly-engineering-standards, flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ famedly-engineering-standards.flakeModules.default ];
+      imports = [
+        famedly-engineering-standards.flakeModules.default
+        ./tests
+      ];
 
       systems = famedly-engineering-standards.lib.famedlySystems;
 
